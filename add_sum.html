@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+	<title>JavaSript Add Simple Function</title>
+</head>
+<body>
+First Value:<input type="text" id="t1" />
+Second value:<input type="text" id="t2"/>
+<p id="result"></p>
+<input type="submit" onclick='addSum()' value="Show">
+
+<script type="text/javascript">
+function addSum () {
+	// body...
+
+var a=document.getElementById('t1').value;
+var b=document.getElementById('t2').value;
+
+var c=parseInt(a)+parseInt(b);
+console.log(c);
+
+var d=document.getElementById('result');
+d.innerHTML=c;
+//d.innerHTML=parseInt(a)+parseInt(b);
+}
+
+</script>
+</body>
+</html>
