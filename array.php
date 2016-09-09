@@ -46,7 +46,28 @@
 	 		"Prime_minister"=>"Narendra Modi",
 	 		"president"=>"Dr.Pranab Mukhrji"
 	 		);
+		var_dump_pre($data){
+			
+		$bt =  debug_backtrace();
+		echo "<b>Calling file:</b>". $bt[0]['file'];
+		echo "<br><b>line no :</b>". $bt[0]['line'];
+		if(is_array($data)) {
+			print "<pre>-----------------------\n";
+			print_r($data);
+			print "-----------------------</pre>";
+		} elseif (is_object($data)) {
+			print "<pre>==========================\n";
+			var_dump($data);
+			print "===========================</pre>";
+		} else {
 
+			print "=========&gt; ";
+			var_dump($data);
+			print " &lt;=========";
+
+		}
+	
+		}
 	  ?>
 	  <h1>
 	  	
