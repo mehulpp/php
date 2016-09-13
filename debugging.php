@@ -20,8 +20,10 @@
   ?>
 </pre>
 <br/>
-<?php 
-	
- ?>
+/*
+/\*(.|[\r\n])*?\*/   for removing comments
+^\s*\n  for removing blank lines
+//.*$   for single line comment
+*/
 </body>
 </html>
