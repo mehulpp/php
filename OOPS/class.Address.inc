@@ -34,6 +34,7 @@ class Address{
 	
 	//primary key of address
 	protected $_address_id;
+	protected $_address_type_id;
 	protected $_time_created;
 	protected $_time_updated;
 	
@@ -88,6 +89,11 @@ class Address{
 	 * @prama strign $name
 	 * @param mixed $value */
 	function __set($name,$value){
+		//only set valid address type id
+		if('address_type_id' == $name){
+			$this->_setAddressTypeId($value);
+			return;
+		}
 		//allow anything to set the potal code
 		if ('postal_code' == $name) {
 			$this->$name = $value;
@@ -106,7 +112,28 @@ class Address{
 	 * @todo replace with a database lookup.
 	 *  */
 	protected function _postal_code_guess(){
-		return 'LOOKUP';
+		//return 'LOOKUP';
+		
+		$db=Database::getInstance();
+		$mysqli=$db->getConnection();
+		
+		$sql_query="SELECT postal_code ";
+		$sql_query .="from location";
+		
+		$city_name =$mysqli->real_escape_string($this->city_name);
+		$sql_query .=" where city_name = '".$city_name."' ";
+		
+		$subdivision_name=$mysqli->real_escape_string($this->subdivision_name);
+		$sql_query .="and subdivision_name = '".$subdivision_name."'";
+		
+		
+		//echo $sql_query;
+		$result=$mysqli->query($sql_query);
+		
+		if ($row = $result->fetch_assoc()){
+			return $row['postal_code'];
+		}
+		
 	}
 	
 	/* display address in broswer */
@@ -126,5 +153,23 @@ class Address{
 		return $output;
 	}
 	
+	/* 
+	 * Determine if an address type is valid
+	 * @param int address
+	 * @return boolean */
+	static public function isValidAddressTypeId($address_type_id){
+		return array_key_exists($address_type_id, self::$valid_address_types);
+	}
+	
+	/* 
+	 * if valid set the address type id
+	 * @prama int $address type id
+	 *  */
+	protected function _setAddressTypeId($address_type_id){
+		if (self::isValidAddressTypeId($address_type_id)){
+			$this->_address_type_id=$address_type_id;
+			
+		}
+	}
 }
 ?>
