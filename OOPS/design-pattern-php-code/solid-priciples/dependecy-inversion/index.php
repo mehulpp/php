@@ -24,6 +24,10 @@ class PasswordReset
     {
         $this->connect = $connect;
     }
+    
+    public function connect(){
+        $this->connect->connect();
+    }
 }
 $obj = new PasswordReset(new DbConnect);
 #print_r($obj);
