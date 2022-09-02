@@ -1,6 +1,9 @@
 <?php
 
 /**
+* The principle defines that objects of a superclass shall be replaceable with objects of its subclasses without breaking the application. 
+*/
+/**
  * Interface LessonRepository
  */
 interface LessonRepository{
